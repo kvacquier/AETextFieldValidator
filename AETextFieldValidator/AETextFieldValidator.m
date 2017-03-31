@@ -49,13 +49,10 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     
-    const CGFloat *color=CGColorGetComponents(self.popUpColor.CGColor);
-    
-    
     //draw down arrow
     UIGraphicsBeginImageContext(CGSizeMake(30, 20));
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetRGBFillColor(ctx, color[0], color[1], color[2], 1);
+    CGContextSetFillColorWithColor(ctx, self.popUpColor.CGColor);
     
     UIColor* shadowColor = nil;
     if(self.popUpShadowColor){
