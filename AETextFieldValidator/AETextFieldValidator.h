@@ -59,6 +59,9 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface AETextFieldValidator : UITextField<UIText
 @property (nonatomic,assign) BOOL isMandatory;   /**< Default is YES*/
 
 @property (nonatomic,retain) IBOutlet UIView *presentInView;    /**< Assign view on which you want to show popup and it would be good if you provide controller's view*/
+@property (nonatomic,retain) IBOutlet UIView *ownerSubview;
+
+@property (nonatomic,assign) CGRect rectForInfoButton;
 
 @property (nonatomic,retain) UIColor *popUpColor UI_APPEARANCE_SELECTOR;   /**< Assign popup background color, you can also assign default popup color from macro "ColorPopUpBg" at the top*/
     

@@ -15,7 +15,6 @@
 @property (nonatomic,assign) CGRect fieldFrame;
 @property (nonatomic,copy) NSString *strMsg;
     
-    
 @property (nonatomic,strong) UIImageView* iv;
 @property (nonatomic,strong) UILabel* lblInPopup;
 @property (nonatomic,strong) UIView* popUpView;
@@ -28,9 +27,6 @@
 @property (nonatomic,assign) CGFloat popUpShadowRadius;
 @property (nonatomic,strong) UIFont* popUpFont;
 @property (nonatomic,assign) CGFloat popUpCornerRadius;
-
-
-    
 
 @end
 
@@ -151,7 +147,7 @@
         if(self.popUpView){
             dict=NSDictionaryOfVariableBindings(_popUpView);
             [self.popUpView.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-%f-[_popUpView(%f)]",self.fieldFrame.origin.x+(self.fieldFrame.size.width-([self lblSize].width+(kPaddingInErrorPopUp*2))),[self lblSize].width+(kPaddingInErrorPopUp*2)] options:NSLayoutFormatDirectionLeadingToTrailing  metrics:nil views:dict]];
-            [self.popUpView.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-%f-[_popUpView(%f)]",imgframe.origin.y+imgframe.size.height -1.0 ,[self lblSize].height+(kPaddingInErrorPopUp*2)] options:NSLayoutFormatDirectionLeadingToTrailing  metrics:nil views:dict]];
+            [self.popUpView.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-%f-[_popUpView(%f)]",imgframe.origin.y+imgframe.size.height -0.0 ,[self lblSize].height+(kPaddingInErrorPopUp*2)] options:NSLayoutFormatDirectionLeadingToTrailing  metrics:nil views:dict]];
         }
         
         //label
@@ -267,7 +263,7 @@
 @end
 
 @implementation AETextFieldValidator
-@synthesize presentInView,validateOnCharacterChanged,popUpColor,isMandatory,validateOnResign,errorImg;
+@synthesize rectForInfoButton,ownerSubview,presentInView,validateOnCharacterChanged,popUpColor,isMandatory,validateOnResign,errorImg;
 
 #pragma mark - Default Methods of UIView
 - (id)initWithFrame:(CGRect)frame{
@@ -292,7 +288,7 @@
     validateOnCharacterChanged=YES;
     isMandatory=YES;
     validateOnResign=YES;
-
+    rectForInfoButton = CGRectMake(0, 0, 25, 25);
     supportObj=[[TextFieldValidatorSupport alloc] init];
     supportObj.validateOnCharacterChanged=validateOnCharacterChanged;
     supportObj.validateOnResign=validateOnResign;
@@ -378,7 +374,7 @@
 }
 
 -(void)showErrorIconForMsg:(NSString *)msg{
-    UIButton *btnError=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    UIButton *btnError=[[UIButton alloc] initWithFrame:rectForInfoButton];
     [btnError addTarget:self action:@selector(tapOnError) forControlEvents:UIControlEventTouchUpInside];
     
     NSBundle* bundle = [NSBundle bundleForClass:[AETextFieldValidator class]];
@@ -434,10 +430,10 @@
     }
     popUp.popUpFont = font;
     
-    popUp.showOnRect=[self convertRect:self.rightView.frame toView:presentInView];
+    popUp.showOnRect=[self convertRect:self.rightView.frame toView:ownerSubview];
     popUp.fieldFrame=[self.superview convertRect:self.frame toView:presentInView];
     popUp.backgroundColor=[UIColor clearColor];
-    [presentInView addSubview:popUp];
+    [ownerSubview addSubview:popUp];
     
     popUp.translatesAutoresizingMaskIntoConstraints=NO;
     NSDictionary *dict=NSDictionaryOfVariableBindings(popUp);
