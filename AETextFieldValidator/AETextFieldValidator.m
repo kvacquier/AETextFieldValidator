@@ -263,7 +263,7 @@
 @end
 
 @implementation AETextFieldValidator
-@synthesize rectForInfoButton,ownerSubview,presentInView,validateOnCharacterChanged,popUpColor,isMandatory,validateOnResign,errorImg;
+@synthesize rectForInfoButton,presentInView,validateOnCharacterChanged,popUpColor,isMandatory,validateOnResign,errorImg;
 
 #pragma mark - Default Methods of UIView
 - (id)initWithFrame:(CGRect)frame{
@@ -430,10 +430,10 @@
     }
     popUp.popUpFont = font;
     
-    popUp.showOnRect=[self convertRect:self.rightView.frame toView:ownerSubview];
+    popUp.showOnRect=[self convertRect:self.rightView.frame toView:presentInView];
     popUp.fieldFrame=[self.superview convertRect:self.frame toView:presentInView];
     popUp.backgroundColor=[UIColor clearColor];
-    [ownerSubview addSubview:popUp];
+    [presentInView addSubview:popUp];
     
     popUp.translatesAutoresizingMaskIntoConstraints=NO;
     NSDictionary *dict=NSDictionaryOfVariableBindings(popUp);
