@@ -26,7 +26,7 @@
      [[AETextFieldValidator appearance] setPopUpShadowColor:[UIColor darkGrayColor]];
      [[AETextFieldValidator appearance] setPopUpShadowRadius:3.0f];
      
-     [[AETextFieldValidator appearance] setPopUpFont:[UIFont fontWithName:kFontName size:25]];
+     [[AETextFieldValidator appearance] setPopUpFont:[UIFont fontWithName:kFontName size:11]];
      [[AETextFieldValidator appearance] setMandatoryInvalidMsg:@"This field is required"];
      [[AETextFieldValidator appearance] setPopUpCornerRadius:5.0f];
     

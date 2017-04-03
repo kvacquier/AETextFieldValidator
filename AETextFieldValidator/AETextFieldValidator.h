@@ -62,6 +62,8 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface AETextFieldValidator : UITextField<UIText
 
 @property (nonatomic,assign) CGRect rectForInfoButton;
 
+@property (nonatomic,assign) int popUpWidth;
+
 @property (nonatomic,retain) UIColor *popUpColor UI_APPEARANCE_SELECTOR;   /**< Assign popup background color, you can also assign default popup color from macro "ColorPopUpBg" at the top*/
     
 @property (nonatomic,assign) CGFloat popUpCornerRadius UI_APPEARANCE_SELECTOR;   /**< Assign popup corner radius, you can also assign default popup color from macro "kPopupCornerRadius" at the top*/

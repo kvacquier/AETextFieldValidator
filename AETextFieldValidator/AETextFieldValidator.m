@@ -37,6 +37,7 @@
     if(this){
         this.popUpCornerRadius = kPopupCornerRadius;
         this.popUpShadowRadius = kPopupShadowRadius;
+        this.popWidth = 0;
     }
     return this;
 }
@@ -146,15 +147,15 @@
         //popup
         if(self.popUpView){
             dict=NSDictionaryOfVariableBindings(_popUpView);
-            [self.popUpView.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-%f-[_popUpView(%f)]",self.fieldFrame.origin.x+(self.fieldFrame.size.width-([self lblSize].width+(kPaddingInErrorPopUp*2))),[self lblSize].width+(kPaddingInErrorPopUp*2)] options:NSLayoutFormatDirectionLeadingToTrailing  metrics:nil views:dict]];
-            [self.popUpView.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-%f-[_popUpView(%f)]",imgframe.origin.y+imgframe.size.height -0.0 ,[self lblSize].height+(kPaddingInErrorPopUp*2)] options:NSLayoutFormatDirectionLeadingToTrailing  metrics:nil views:dict]];
+            [self.popUpView.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[_popUpView(%f)]",self.fieldFrame.origin.x+((self.fieldFrame.size.width)-([self lblSize].width+(kPaddingInErrorPopUp*2))),[self lblSize].width+(kPaddingInErrorPopUp*2)] options:NSLayoutFormatDirectionLeadingToTrailing  metrics:nil views:dict]];
+            [self.popUpView.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%f)-[_popUpView(%f)]",imgframe.origin.y+imgframe.size.height -1.0 ,[self lblSize].height+(kPaddingInErrorPopUp*2)] options:NSLayoutFormatDirectionLeadingToTrailing  metrics:nil views:dict]];
         }
         
         //label
         if(self.lblInPopup){
             dict=NSDictionaryOfVariableBindings(_lblInPopup);
             [self.lblInPopup.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-%f-[_lblInPopup(%f)]",(float)kPaddingInErrorPopUp,[self lblSize].width] options:NSLayoutFormatDirectionLeadingToTrailing  metrics:nil views:dict]];
-            [self.lblInPopup.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-%f-[_lblInPopup(%f)]",(float)kPaddingInErrorPopUp,[self lblSize].height] options:NSLayoutFormatDirectionLeadingToTrailing  metrics:nil views:dict]];
+            [self.lblInPopup.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%f)-[_lblInPopup(%f)]",(float)kPaddingInErrorPopUp,[self lblSize].height] options:NSLayoutFormatDirectionLeadingToTrailing  metrics:nil views:dict]];
         }
         
         if(self.iv || self.popUpView || self.lblInPopup){
@@ -172,7 +173,7 @@
         font=[UIFont fontWithName:kFontName size:kFontSize];
     }
 
-    CGSize size=[self.strMsg boundingRectWithSize:CGSizeMake(self.fieldFrame.size.width-(kPaddingInErrorPopUp*2), 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil].size;
+    CGSize size=[self.strMsg boundingRectWithSize:CGSizeMake(self.fieldFrame.size.width-(kPaddingInErrorPopUp*2)+self.popWidth, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil].size;
     size=CGSizeMake(ceilf(size.width), ceilf(size.height));
     return size;
 }
@@ -263,7 +264,7 @@
 @end
 
 @implementation AETextFieldValidator
-@synthesize rectForInfoButton,presentInView,validateOnCharacterChanged,popUpColor,isMandatory,validateOnResign,errorImg;
+@synthesize popUpWidth,rectForInfoButton,presentInView,validateOnCharacterChanged,popUpColor,isMandatory,validateOnResign,errorImg;
 
 #pragma mark - Default Methods of UIView
 - (id)initWithFrame:(CGRect)frame{
@@ -288,6 +289,7 @@
     validateOnCharacterChanged=YES;
     isMandatory=YES;
     validateOnResign=YES;
+    popUpWidth = 0;
     rectForInfoButton = CGRectMake(0, 0, 25, 25);
     supportObj=[[TextFieldValidatorSupport alloc] init];
     supportObj.validateOnCharacterChanged=validateOnCharacterChanged;
@@ -418,8 +420,9 @@
     }
     popUp.popUpShadowColor = shadowColor;
     popUp.popUpShadowRadius = self.popUpShadowRadius;
-    
     popUp.popUpCornerRadius = self.popUpCornerRadius;
+    
+    popUp.popWidth = popUpWidth;
     
     UIFont* font = nil;
     if(self.popUpFont){

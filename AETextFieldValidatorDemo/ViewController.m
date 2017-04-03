@@ -46,7 +46,7 @@
     txtDemo=[[AETextFieldValidator alloc] init];
     txtDemo.translatesAutoresizingMaskIntoConstraints = NO;
     txtDemo.borderStyle=UITextBorderStyleRoundedRect;
-    txtDemo.placeholder=@"Programmatically created - Email";
+    txtDemo.placeholder=@"Programmatically created - Email 11111111111111";
     txtDemo.delegate=self;
     txtDemo.presentInView= viewContainer;
     txtDemo.validateOnResign = YES;
@@ -55,12 +55,12 @@
     [formFieldsContainer addArrangedSubview:txtDemo];
     [formFieldsContainer didAddSubview:txtDemo];
     //[formFieldsContainer layoutSubviews];
-    [txtDemo addRegx:REGEX_EMAIL withMsg:@"Enter valid email."];
+    [txtDemo addRegx:REGEX_EMAIL withMsg:@"Enter valid email. 111111111111111111111111111111111111111111"];
     txtDemo.delegate=self;
 }
 
 -(void)setupAlerts{
-    [txtUserName addRegx:REGEX_USER_NAME_LIMIT withMsg:@"User name charaters limit should be come between 3-10"];
+    [txtUserName addRegx:REGEX_USER_NAME_LIMIT withMsg:@"User name charaters limit should be come between 3-10 "];
     [txtUserName addRegx:REGEX_USER_NAME withMsg:@"Only alpha numeric characters are allowed."];
     txtUserName.validateOnResign=NO;
     
